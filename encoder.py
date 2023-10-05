@@ -1,9 +1,14 @@
 from typing import List, Tuple
 
 
-def palindrome_seq(seq: List[int]):
+def palindrome_seq(seq: List[int], odd: bool):
 
-    palindrome = seq + list(reversed(seq))
+    if odd:
+        if len(seq) <= 1:
+            raise IndexError('your seq is too short')
+        palindrome = seq + list(reversed(seq))[1:]
+    else:
+        palindrome = seq + list(reversed(seq))
 
     return palindrome
 
@@ -24,7 +29,8 @@ def get_equation(num: Tuple[int, int], dem: Tuple[int, int]):
 
 
 def main(seq:  List[int]):
-    palindrome = palindrome_seq(seq)
+    palindrome = palindrome_seq(seq, odd=True)
+    print(palindrome)
     num, den = decode_continued_fraction(palindrome)
     trace, norm = get_equation(num, den)
     print('Norm', norm, ', so it is Galois extension')
