@@ -1,35 +1,35 @@
-from typing import List
+from typing import List, Tuple
 
 
-def palindromed_seq(seq: List):
+def palindrome_seq(seq: List[int]):
 
-    palindromed_seq = seq + list(reversed(seq))
+    palindrome = seq + list(reversed(seq))
 
-    return palindromed_seq
+    return palindrome
 
 
-def get_continued_fracted(seq):
+def decode_continued_fraction(seq: List[int]):
     num, den = (0, 1), (1, 0)
     for u in reversed(seq):
         num, den = den, (den[0]*u + num[0], den[1]*u + num[1])
     return num, den
 
 
-def get_equation(num, dem):
+def get_equation(num: Tuple[int, int], dem: Tuple[int, int]):
 
     trace = (dem[0]-num[1], dem[1])
     norm = -num[0] / dem[1]
 
     return trace, norm
 
-def main():
-    # Get the the number of terms, less one
-    seq = [1, 2, 3]
-    palindrome = palindromed_seq(seq)
-    num, den = get_continued_fracted(palindrome)
+
+def main(seq:  List[int]):
+    palindrome = palindrome_seq(seq)
+    num, den = decode_continued_fraction(palindrome)
     trace, norm = get_equation(num, den)
     print('Norm', norm, ', so it is Galois extension')
-    print('Trace', trace, norm)
+    print('Trace', trace)
+
 
 if __name__ == '__main__':
-    main()
+    main(seq=[1, 2, 3])
